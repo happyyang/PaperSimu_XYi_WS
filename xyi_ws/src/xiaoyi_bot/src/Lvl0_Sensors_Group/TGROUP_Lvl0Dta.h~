@@ -1,0 +1,80 @@
+#ifndef __tgroup_Lvl0Dta_H
+#define __tgroup_Lvl0Dta_H
+	
+	#include "../ROBOT_PACK.h"
+
+	#include "../ROBOT_DFINE.h"
+	
+	// *************************************************************************************************************************
+	// [sensor_laser] PACK:
+	// *************************************************************************************************************************
+	// Mutex 0 :	vector LsrDta [RA] [XY]
+	#define SensorLaser_LaserDtara_xy_Topics	"/sensor/laser/LaserDtara_xy"	
+	
+	void SensorLaser_LaserDtara_xyCall(const xiaoyi_swd::MDtaPack_Lvl0& raxy);
+
+	bool SensorLaser_Write_LaserDtara_xy(vector<Float2B1Array> *Dtainra, vector<Float2Array> *Dtainxy, unsigned int Dtalen);
+	
+	int SensorLaser_Read_LaserDtara_xy_len(void);
+	char SensorLaser_Read_LaserDtaray_range(Float2Array *Rdta);
+
+	char SensorLaser_Read_LaserDtara_xy(vector<Float2B1Array> *Dtaoutra, vector<Float2Array> *Dtaoutxy, unsigned int Dtalen);
+	char SensorLaser_Read_LaserDtaxyb(vector<Float2B1Array> *Dtaoutxyb, unsigned int Dtalen);
+	char SensorLaser_Read_LaserDtarab(vector<Float2B1Array> *Dtaoutrab, unsigned int Dtalen);
+
+	// Mutex 1 :	float PathMindis
+	#define SensorLaser_PathMinDis_Topics		"/sensor/laser/pathmindis"
+
+	void SensorLaser_PathMindisCall(const xiaoyi_swd::MDtaPack_Lvl0& pathmindis);
+
+	bool SensorLaser_Write_PathMindis(float Dtain);
+
+	char SensorLaser_Read_PathMindis(float *Dtaout);
+
+	// Mutex 2 :	vector AnglePathDisArray 
+	#define SensorLaser_AnglePathDisArray_Topics	"/sensor/laser/angledisarray"
+
+	void SensorLaser_AnglePathDisArrayCall(const xiaoyi_swd::MDtaPack_Lvl0& anglepathdisarray);
+
+	bool SensorLaser_Write_AnglePathDisArray(vector<Float2Array> *AngleDisArray, unsigned int Dtalen);
+
+	int SensorLaser_Read_AnglePathDisArray_len(void);
+	char SensorLaser_Read_AnglePathDisArray(vector<Float2Array> *AngleDisArray, unsigned int Dtalen);
+
+	// Mutex 3 : 	
+	
+		
+	// *************************************************************************************************************************
+	// [sensor_odom] PACK:
+	// *************************************************************************************************************************
+	// Mutex 0 :	Point32 OdomXyyaw, geoPose OdomPose
+	#define SensorOdom_OdomXyyaw_Topics	"/sensor/odom/xyyaw"
+	#define SensorOdom_OdomPose_Topics	"/sensor/odom/pose"
+
+	void SensorOdom_OdomXyyawCall(const xiaoyi_swd::MDtaPack_Lvl0& odomxyyaw);
+	void SensorOdom_OdomposeCall(const xiaoyi_swd::MDtaPack_Lvl0& odompose);
+
+	bool SensorOdom_Write_OdomXyyaw(geometry_msgs::Point32 Dtain);
+	bool SensorOdom_Write_OdomPose(geometry_msgs::Pose Dtain);
+	
+	char SensorOdom_Read_OdomXyyaw(geometry_msgs::Point32 *Dtaout);
+	char SensorOdom_Read_OdomPose(geometry_msgs::Pose *Dtaout);
+
+	// Mutex 1 : 	Twist 
+	#if Simulation_En == 0
+
+	#define SensorOdom_OdomTwist_Topics	Topics_RTOSTwist		// from "com_usb_define.h"
+	void SensorOdom_OdomTwistCall(const geometry_msgs::Twist& odomtwist);	
+	
+	#else
+	
+	#define SensorOdom_OdomTwist_Topics	Topics_OdomMid			// from "sensor_odom_define.h"
+	void SensorOdom_OdomTwistCall(const nav_msgs::Odometry& odomtwist);	
+
+	#endif
+
+	char SensorOdom_Read_OdomTwist(geometry_msgs::Twist *Dtaout);
+#endif
+
+
+

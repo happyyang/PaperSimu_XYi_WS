@@ -1,0 +1,53 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec707990765/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec707990765.dir/build.make CMakeFiles/cmTryCompileExec707990765.dir/build
+make[1]: Entering directory `/home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec707990765.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec707990765.dir/CheckSymbolExists.c.o   -c /home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec707990765
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec707990765.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec707990765.dir/CheckSymbolExists.c.o  -o cmTryCompileExec707990765 -rdynamic 
+CMakeFiles/cmTryCompileExec707990765.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+make[1]: Leaving directory `/home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/CMakeFiles/CMakeTmp'
+make[1]: *** [cmTryCompileExec707990765] Error 1
+make: *** [cmTryCompileExec707990765/fast] Error 2
+
+File /home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/make "cmTryCompileExec265502189/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec265502189.dir/build.make CMakeFiles/cmTryCompileExec265502189.dir/build
+make[1]: Entering directory `/home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec265502189.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec265502189.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-2.8/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec265502189
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec265502189.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec265502189.dir/CheckFunctionExists.c.o  -o cmTryCompileExec265502189 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+make[1]: *** [cmTryCompileExec265502189] Error 1
+make[1]: Leaving directory `/home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/CMakeFiles/CMakeTmp'
+make: *** [cmTryCompileExec265502189/fast] Error 2
+
+

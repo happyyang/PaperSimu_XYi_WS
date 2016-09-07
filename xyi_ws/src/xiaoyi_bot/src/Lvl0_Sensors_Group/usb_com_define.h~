@@ -1,0 +1,34 @@
+#ifndef __usb_com_define_H
+#define __usb_com_define_H
+
+	#include "../ROBOT_DFINE.h"
+
+	#if Turtlesim_KeyEn == 0
+		// In: Control the Robot Port
+  		#define Topics_Cmd		"/Port_CmdVel"			//geometry_msgs::Twist
+	#endif
+
+	#if Simulation_En == 1
+		// Out: Control the gazebot
+		#define Topics_Cmd_Simulation2Robot	"/robot_0/cmd_vel"	// geometry_msgs::Twist
+
+	#else 
+		// In:	
+		#define Topics_PosiCmd		"/Port_PosiCmd"			// geometry_msgs::Point32
+	
+		// Out:
+		#define Topics_Ack		"/Port_Ack"			// std_msgs::Int8
+  		#define Topics_RTOSPoint	"/Port_RTOSPoint"		// geometry_msgs::Point32
+  		
+		
+	#endif
+
+
+
+
+
+
+
+#endif
+
+

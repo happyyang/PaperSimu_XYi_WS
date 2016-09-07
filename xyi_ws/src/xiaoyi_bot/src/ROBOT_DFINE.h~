@@ -1,0 +1,29 @@
+#ifndef __robot_dfine_H
+#define __robot_dfine_H
+
+
+	#if Simulation_En
+		
+		#define Robot_Physical_Radius 		0.22
+
+		#define FrameSWD_SimuOdom		"/robot_0/odom"
+		#define FrameSWD_LsrScanDevice		"/robot_0/base_laser_link"	
+
+	#else
+		#define FrameSWD_LsrScanDevice		"laser"		
+
+		#define Robot_Physical_Radius 		0.305f
+
+	#endif
+
+	//#include "Lvl0_Sensors_Group/com_ip_define.h" : python
+	//#include "Lvl0_Sensors_Group/com_usb_define.h"
+	//#include "Lvl0_Sensors_Group/sensor_odom_define.h"
+	//#include "Lvl0_Sensors_Group/sensor_laser_define.h"
+
+	//#include "Lvl1_BrainCore_Group/core_movecmand_define.h"
+	//#include "Lvl1_BrainCore_Group/core_moveguide_define.h"
+
+#endif
+
+

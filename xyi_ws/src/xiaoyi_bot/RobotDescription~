@@ -1,0 +1,20 @@
+>> rostopics list
+/RobotPort_CmdVel
+/RobotPort_FilterScan
+/RobotPort_Scan
+
+/RobotPort_TmpOdom : the integral of the robot odom + robot twist(simulation can't offer twist data)
+
+/RobotPort_Odom ???
+
+>> xiaoyi tf
+		map_r
+
+		odom_r
+
+		base_footprint_r
+
+		base_link_r
+
+		base_laser_link_r
+

@@ -1,0 +1,2 @@
+xiaoyi_bot
+-DCATKIN_DEVEL_PREFIX=/home/cyb7369299/My_Workspace/xyi_ws/devel -DCMAKE_INSTALL_PREFIX=/home/cyb7369299/My_Workspace/xyi_ws/install -G Unix Makefiles

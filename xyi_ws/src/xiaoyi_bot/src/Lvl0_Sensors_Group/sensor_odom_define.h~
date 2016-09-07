@@ -1,0 +1,49 @@
+#ifndef __sensor_odom_define_H
+#define __sensor_odom_define_H
+
+	#include "../ROBOT_DFINE.h"
+
+	#define ROrinLocation_x			0.0f
+	#define ROrinLocation_y			0.0f
+	#define ROrinLocation_yaw		0.0f
+
+	#define RunTopics_Odom_DtaGetPub	"/RunTopics_Odom_DtaGetPub"
+	#define RunTopics_CameraOdom_DtaGetPub	"/RunTopics_CameraOdom_DtaGetPub"
+	
+	#if Simulation_En == 1
+		// In:
+		#define Topics_OdomMid		"/robot_0/odom"		// nav_msgs::Odometry
+		#define Topics_PosiCmd_Simu	"/Port_PosiCmd_Simu"	// geometry_msgs::Point32
+
+		// Out:
+	#else 
+		// In:
+  		#define Topics_OdomMid		Topics_RTOSPoint	// geometry_msgs::Point32 [x,y,yaw]
+		#define Topics_OCameraDta 	"/Port_OCameraString"	// std_msgs::String					
+		
+
+		// Out:
+	#endif
+
+	// Out:	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endif
+
+

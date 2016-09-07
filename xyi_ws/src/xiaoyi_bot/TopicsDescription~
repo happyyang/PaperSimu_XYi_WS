@@ -1,0 +1,9 @@
+>> rostopics list
+/RobotPort_CmdVel
+/RobotPort_FilterScan
+/RobotPort_Scan
+/RobotPort_TmpOdom
+/RobotPort_Twist
+
+/RobotPort_Odom ???
+

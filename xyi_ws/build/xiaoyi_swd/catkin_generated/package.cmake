@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "xiaoyi_swd")
+set(xiaoyi_swd_MAINTAINER "cyb7369299 <cyb7369299@todo.todo>")
+set(xiaoyi_swd_DEPRECATED "")
+set(xiaoyi_swd_VERSION "0.0.0")
+set(xiaoyi_swd_BUILD_DEPENDS "geometry_msgs" "hokuyo_node" "message_generation" "roscpp" "rospy" "std_msgs" "tf" "thread_scom_cplus" "message_runtime")
+set(xiaoyi_swd_RUN_DEPENDS "geometry_msgs" "hokuyo_node" "roscpp" "rospy" "std_msgs" "tf" "thread_scom_cplus" "message_runtime")
+set(xiaoyi_swd_BUILDTOOL_DEPENDS "catkin")

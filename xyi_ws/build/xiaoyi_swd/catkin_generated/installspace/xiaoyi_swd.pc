@@ -1,0 +1,8 @@
+prefix=/home/cyb7369299/My_Workspace/xyi_ws/install
+
+Name: xiaoyi_swd
+Description: Description of xiaoyi_swd
+Version: 0.0.0
+Cflags: -I/home/cyb7369299/My_Workspace/xyi_ws/install/include
+Libs: -L/home/cyb7369299/My_Workspace/xyi_ws/install/lib 
+Requires: message_runtime

@@ -1,0 +1,36 @@
+<launch>
+
+  <node 
+    pkg="xiaoyi_bot" name="Node_Scom" type="scom_node" output="screen">
+    <!-- Enable the turtlesim key 
+    <remap from="/RobotPort_CmdVel" to="/turtle1/cmd_vel"/> 
+    -->
+  </node>
+
+  <node 
+    pkg="xiaoyi_bot" name="Node_Tfmanage" type="tfmanage_node" output="screen">
+
+    <param name="lsr_x" type="double" value="0.095" />
+    <param name="lsr_y" type="double" value="0.0" />
+    <param name="lsr_z" type="double" value="0.1" />
+  </node>
+
+  <node
+    pkg="hokuyo_node" name="Node_Lsr" type="hokuyo_node">
+    <remap from="/scan" to="/RobotPort_Scan"/> 
+    <param name="cluster" value="1"/>
+    <param name="skip" value="1"/>
+    <param name="intensity" value="true"/>
+    <param name="min_ang" value="-1.221640489"/>
+    <param name="max_ang" value="1.221640489"/>
+    <param name="frame_id" value="base_laser_link_r"/>
+  </node>
+
+  <node 
+    pkg="laser_filters" name="laser_filter" type="scan_to_scan_filter_chain">
+    <rosparam command="load" file="$(find xiaoyi_bot)/config/xiaoyi_laser_config.yaml" />
+    <remap from="scan" to="/RobotPort_Scan" />
+    <remap from="/scan_filtered" to="/RobotPort_FilterScan" />
+  </node>
+
+</launch>

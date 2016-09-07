@@ -1,0 +1,70 @@
+#ifndef __sensor_laser_define_H
+#define __sensor_laser_define_H
+
+	#include "../ROBOT_DFINE.h"
+	
+	#define RunTopics_LsrScan_DealLsrScanDta	"/RunTopics_LsrScan_DealLsrScanDta"
+	#define RunTopics_LsrScan_DealAnglePathArray	"/RunTopics_LsrScan_DealAnglePathArray"
+	#define RunTopics_LsrScan_DealMOdomArray	"/RunTopics_LsrScan_DealMOdomArray"
+
+	#if Simulation_En == 1
+	    	#define Topics_LsrScan		"/robot_0/base_scan"
+
+		#define LaserToRobot_XDis 	0.1
+			
+		#define Laser_Range_Max  	5.0
+    		#define Laser_Dta_Len 		1081
+    		#define Laser_Dta_BDlen 	180
+    		#define Laser_Dta_EDlen 	180
+ 
+    		#define laserangle_increment    0.00436736317351
+    		#define cal_begin 		-2.35837626457
+    		#define cal_end			2.35837626457
+
+		// In:
+		
+				
+		// Out:
+	#else 
+		#define Topics_LsrScan		"/scan"
+
+		#define LaserToRobot_XDis 	0.095
+
+		#define Laser_Range_Max   	5.0
+    		#define Laser_Dta_Len  		511
+    		#define Laser_Dta_BDlen  	25
+    		#define Laser_Dta_EDlen  	20
+    
+    		#define laserangle_increment 	0.00613592332229
+    		#define cal_begin 		-1.57079637051
+    		#define cal_end			1.56466042995
+
+		// In:
+		
+
+		// Out:
+	#endif
+
+	// Out:	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#endif
+
+

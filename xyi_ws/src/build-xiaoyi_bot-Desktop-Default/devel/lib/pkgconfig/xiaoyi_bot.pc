@@ -1,0 +1,8 @@
+prefix=/home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/devel
+
+Name: xiaoyi_bot
+Description: Description of xiaoyi_bot
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/cyb7369299/My_Workspace/xyi_ws/src/build-xiaoyi_bot-Desktop-Default/devel/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/cyb7369299/My_Workspace/xyi_ws/install
+
+Name: xiaoyi_bot
+Description: Description of xiaoyi_bot
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/cyb7369299/My_Workspace/xyi_ws/install/lib 
+Requires: 

@@ -1,0 +1,8 @@
+prefix=/home/cyb7369299/My_Workspace/xyi_ws/devel
+
+Name: t3dlibrary
+Description: Description of t3dlibrary
+Version: 0.0.0
+Cflags: -I/home/cyb7369299/My_Workspace/xyi_ws/src/t3dlibrary/include
+Libs: -L/home/cyb7369299/My_Workspace/xyi_ws/devel/lib 
+Requires: 

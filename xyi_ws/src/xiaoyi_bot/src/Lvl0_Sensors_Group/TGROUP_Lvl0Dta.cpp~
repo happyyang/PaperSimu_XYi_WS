@@ -1,0 +1,523 @@
+#include "TGROUP_Lvl0Dta.h"
+
+// Read Me:
+// return char
+//	[1] success, [0] mutex fail, [2] there are no data  
+
+
+// *************************************************************************************************************************
+// [sensor_laser] PACK:
+// *************************************************************************************************************************
+//*********************************************************************************************************************
+//						Mutex0 Part 
+//*********************************************************************************************************************
+static volatile bool SensorLaser_mutex0 = true;
+static vector<Float2B1Array> LaserDtara;
+static vector<Float2Array> LaserDtaxy;
+
+//* Sub Topics Func */
+void SensorLaser_LaserDtara_xyCall(const xiaoyi_swd::MDtaPack_Lvl0& raxy)
+{
+	if (SensorLaser_mutex0 == true)
+	{
+		SensorLaser_mutex0 = false;
+		
+		int len = raxy.farray0.size();
+		if (((LaserDtara.size())!=len)or((LaserDtaxy.size())!=len)){
+			LaserDtara.resize(len);
+			LaserDtaxy.resize(len);
+		}
+		if ((raxy.farray_use == 4)and(raxy.carray_use == 1)){
+			for (int i=0; i<len; i++){
+				LaserDtara[i].dta0 = raxy.farray0[i];
+				LaserDtara[i].dta1 = raxy.farray1[i];
+				LaserDtara[i].isSta = raxy.carray0[i];			
+
+				LaserDtaxy[i].dta0 = raxy.farray2[i];
+				LaserDtaxy[i].dta1 = raxy.farray3[i];
+			}
+		}
+
+		SensorLaser_mutex0 = true;
+	}
+}
+
+//* Write Part *//
+bool SensorLaser_Write_LaserDtara_xy(vector<Float2B1Array> *Dtainra, vector<Float2Array> *Dtainxy, unsigned int Dtalen)
+{
+	bool sta = false;
+	xiaoyi_swd::MDtaPack_Lvl0 mdtapack;
+	if (SensorLaser_mutex0 == true)
+	{
+		SensorLaser_mutex0 = false;
+		
+		if ((LaserDtara.size()) != Dtalen)	LaserDtara.resize(Dtalen);
+		if ((LaserDtaxy.size()) != Dtalen)	LaserDtaxy.resize(Dtalen);
+		
+		sta = true;
+		for (int i=0; i<Dtalen; i++){
+			LaserDtara[i] = (*Dtainra)[i];
+			LaserDtaxy[i] = (*Dtainxy)[i];
+
+			mdtapack.carray0.push_back((*Dtainra)[i].isSta);
+
+			mdtapack.farray0.push_back((*Dtainra)[i].dta0);
+			mdtapack.farray1.push_back((*Dtainra)[i].dta1);
+
+			mdtapack.farray2.push_back((*Dtainxy)[i].dta0);
+			mdtapack.farray3.push_back((*Dtainxy)[i].dta1);
+		}
+
+		SensorLaser_mutex0 = true;
+	}
+
+	if(sta){
+		static ros::NodeHandle nstru;
+		static ros::Publisher pub = nstru.advertise<xiaoyi_swd::MDtaPack_Lvl0>(SensorLaser_LaserDtara_xy_Topics,1);
+		mdtapack.fdta_use = 0;
+		mdtapack.carray_use = 1;
+		mdtapack.farray_use = 4;
+		pub.publish(mdtapack);
+
+		return true;
+	}
+	return false;
+}
+
+//* Read Part *//
+int SensorLaser_Read_LaserDtara_xy_len(void)
+{
+	return LaserDtara.size();
+}
+
+char SensorLaser_Read_LaserDtaray_range(Float2Array *Rdta)
+{
+	static int len;
+	len = SensorLaser_Read_LaserDtara_xy_len();
+	if (len > 0){
+		Rdta->dta0 = LaserDtara[0].dta1;
+		Rdta->dta1 = LaserDtara[len-1].dta1;
+		return 1;
+	}
+	return 0; 
+}
+
+char SensorLaser_Read_LaserDtara_xy(vector<Float2B1Array> *Dtaoutra, vector<Float2Array> *Dtaoutxy, unsigned int Dtalen)
+{
+	if (SensorLaser_mutex0 == true)
+	{
+		SensorLaser_mutex0 = false;
+		
+		if ((LaserDtara.size()) != Dtalen) {	SensorLaser_mutex0 = true;	return 2;}
+		if ((LaserDtaxy.size()) != Dtalen) {	SensorLaser_mutex0 = true;	return 2;}
+		
+		if ((Dtaoutra->size()) != Dtalen) {	Dtaoutra->resize(Dtalen);}
+		if ((Dtaoutxy->size()) != Dtalen) {	Dtaoutxy->resize(Dtalen);}
+		for (int i=0; i<Dtalen; i++){
+			(*Dtaoutra)[i] = LaserDtara[i];
+
+			(*Dtaoutxy)[i] = LaserDtaxy[i];
+		}
+
+		SensorLaser_mutex0 = true;
+		return 1;
+	}
+	return 0;
+
+}
+
+char SensorLaser_Read_LaserDtaxyb(vector<Float2B1Array> *Dtaoutxyb, unsigned int Dtalen)
+{
+	if (SensorLaser_mutex0 == true)
+	{
+		SensorLaser_mutex0 = false;
+		
+		if ((LaserDtaxy.size()) != Dtalen) {	SensorLaser_mutex0 = true;	return 2;}
+		if ((LaserDtara.size()) != Dtalen) {	SensorLaser_mutex0 = true;	return 2;}
+		
+		if ((Dtaoutxyb->size()) != Dtalen) {	Dtaoutxyb->resize(Dtalen);}
+		for (int i=0; i<Dtalen; i++){
+			(*Dtaoutxyb)[i].dta0 = LaserDtaxy[i].dta0;
+			(*Dtaoutxyb)[i].dta1 = LaserDtaxy[i].dta1;
+			(*Dtaoutxyb)[i].isSta = LaserDtara[i].isSta;
+		}
+
+		SensorLaser_mutex0 = true;
+		return 1;
+	}
+	return 0;
+
+}
+
+char SensorLaser_Read_LaserDtarab(vector<Float2B1Array> *Dtaoutrab, unsigned int Dtalen)
+{
+	if (SensorLaser_mutex0 == true)
+	{
+		SensorLaser_mutex0 = false;
+		
+		if ((LaserDtara.size()) != Dtalen) {	SensorLaser_mutex0 = true;	return 2;}
+		
+		if ((Dtaoutrab->size()) != Dtalen) {	Dtaoutrab->resize(Dtalen);}
+		for (int i=0; i<Dtalen; i++){
+			(*Dtaoutrab)[i] = LaserDtara[i];
+		}
+
+		SensorLaser_mutex0 = true;
+		return 1;
+	}
+	return 0;
+
+}
+
+//*********************************************************************************************************************
+//						Mutex1 Part 
+//*********************************************************************************************************************
+static volatile bool SensorLaser_mutex1 = true;
+static float PathMindis = 0;
+
+//* Sub Topics Func */
+void SensorLaser_PathMindisCall(const xiaoyi_swd::MDtaPack_Lvl0& pathmindis)
+{
+	if (SensorLaser_mutex1 == true)
+	{
+		SensorLaser_mutex1 = false;
+		
+		if(pathmindis.fdta_use == 1){
+			PathMindis = pathmindis.fdta0;	
+		}
+
+		SensorLaser_mutex1 = true;
+	}
+}
+
+//* Write Part *//
+bool SensorLaser_Write_PathMindis(float Dtain)
+{
+	bool sta = false;
+	if (SensorLaser_mutex1 == true)
+	{
+		SensorLaser_mutex1 = false;
+
+		sta = true;
+		PathMindis = Dtain;
+
+		SensorLaser_mutex1 = true;
+	}
+
+	if (sta){
+		static ros::NodeHandle nstru;
+		static ros::Publisher pub = nstru.advertise<xiaoyi_swd::MDtaPack_Lvl0>(SensorLaser_PathMinDis_Topics,1);
+		xiaoyi_swd::MDtaPack_Lvl0 mdtapack;
+		mdtapack.fdta_use = 1;
+		mdtapack.farray_use = 0;	
+		mdtapack.fdta0 = Dtain;
+		pub.publish(mdtapack);	
+
+		return true;	
+	}
+	return false;
+}
+
+//* Read Part *//
+char SensorLaser_Read_PathMindis(float *Dtaout)
+{
+	if (SensorLaser_mutex1 == true)
+	{
+		SensorLaser_mutex1 = false;
+
+		(*Dtaout) = PathMindis;
+
+		SensorLaser_mutex1 = true;
+		return 1;
+	}
+	return 0;
+}
+
+//*********************************************************************************************************************
+//						Mutex2 Part 
+//*********************************************************************************************************************
+static volatile bool SensorLaser_mutex2 = true;
+static vector<Float2Array> AnglePathDisArray;
+
+//* Sub Topics Func */
+void SensorLaser_AnglePathDisArrayCall(const xiaoyi_swd::MDtaPack_Lvl0& anglepathdisarray)
+{
+	if (SensorLaser_mutex2 == true)
+	{
+		SensorLaser_mutex2 = false;
+		
+		int len = anglepathdisarray.farray0.size();
+		if ((AnglePathDisArray.size())!=len)	AnglePathDisArray.resize(len);
+		if (anglepathdisarray.farray_use == 2){
+			for (int i=0; i<len; i++){
+				AnglePathDisArray[i].dta0 = anglepathdisarray.farray0[i];
+				AnglePathDisArray[i].dta1 = anglepathdisarray.farray1[i];
+			}
+		}
+
+		SensorLaser_mutex2 = true;
+	}
+}
+
+//* Write Part *//
+bool SensorLaser_Write_AnglePathDisArray(vector<Float2Array> *AngleDisArray, unsigned int Dtalen)
+{
+	bool sta = false;
+	xiaoyi_swd::MDtaPack_Lvl0 mdtapack;
+	if (SensorLaser_mutex2 == true)
+	{
+		SensorLaser_mutex2 = false;
+		
+		if ((AnglePathDisArray.size()) != Dtalen)	AnglePathDisArray.resize(Dtalen);
+		
+		sta = true;
+		for (int i=0; i<Dtalen; i++){
+			AnglePathDisArray[i] = (*AngleDisArray)[i];
+			mdtapack.farray0.push_back((*AngleDisArray)[i].dta0);
+			mdtapack.farray1.push_back((*AngleDisArray)[i].dta1);
+		}
+
+		SensorLaser_mutex2 = true;
+	}
+
+	if(sta){
+		static ros::NodeHandle nstru;
+		static ros::Publisher pub = nstru.advertise<xiaoyi_swd::MDtaPack_Lvl0>(SensorLaser_AnglePathDisArray_Topics,1);
+		mdtapack.fdta_use = 0;
+		mdtapack.farray_use = 2;
+		pub.publish(mdtapack);
+
+		return true;
+	}
+	return false;
+}
+
+//* Read Part *//
+int SensorLaser_Read_AnglePathDisArray_len(void)
+{
+	return AnglePathDisArray.size();
+}
+
+char SensorLaser_Read_AnglePathDisArray(vector<Float2Array> *AngleDisArray, unsigned int Dtalen)
+{
+	if (SensorLaser_mutex2 == true)
+	{
+		SensorLaser_mutex2 = false;
+		
+		if ((AnglePathDisArray.size()) != Dtalen) {	SensorLaser_mutex2 = true;	return 2;}
+		
+		if ((AngleDisArray->size()) != Dtalen) {	AngleDisArray->resize(Dtalen);}
+		for (int i=0; i<Dtalen; i++){
+			(*AngleDisArray)[i] = AnglePathDisArray[i];
+		}
+
+		SensorLaser_mutex2 = true;
+		return 1;
+	}
+	return 0;
+
+}
+
+//*********************************************************************************************************************
+//						Mutex3 Part 
+//*********************************************************************************************************************
+
+
+// *************************************************************************************************************************
+// [sensor_odom] PACK:
+// *************************************************************************************************************************
+//*********************************************************************************************************************
+//						Mutex0 Part 
+//*********************************************************************************************************************
+static volatile bool SensorOdom_mutex0 = true;
+static bool SensorOdom_Init0 = false, SensorOdom_Init1 = false;
+static geometry_msgs::Point32 OdomXyyaw;
+static geometry_msgs::Pose OdomPose;
+
+//* Sub Topics Func */
+void SensorOdom_OdomXyyawCall(const xiaoyi_swd::MDtaPack_Lvl0& odomxyyaw)
+{
+	if (SensorOdom_mutex0 == true)
+	{
+		SensorOdom_mutex0 = false;
+		
+		OdomXyyaw = odomxyyaw.point32dta;
+		SensorOdom_Init0 = true;
+
+		SensorOdom_mutex0 = true;
+	}
+}
+
+void SensorOdom_OdomposeCall(const xiaoyi_swd::MDtaPack_Lvl0& odompose)
+{
+	if (SensorOdom_mutex0 == true)
+	{
+		SensorOdom_mutex0 = false;
+		
+		OdomPose = odompose.posedta;
+		SensorOdom_Init1 = true;
+
+		SensorOdom_mutex0 = true;
+	}
+}
+
+//* Write Part *//
+bool SensorOdom_Write_OdomXyyaw(geometry_msgs::Point32 Dtain)
+{
+	bool sta = false;
+	if (SensorOdom_mutex0 == true)
+	{
+		SensorOdom_mutex0 = false;
+		
+		sta = true;
+		OdomXyyaw = Dtain;
+		SensorOdom_Init0 = true;
+
+		SensorOdom_mutex0 = true;
+	}
+	
+	if(sta){
+		static ros::NodeHandle nstru;
+		static ros::Publisher pub = nstru.advertise<xiaoyi_swd::MDtaPack_Lvl0>(SensorOdom_OdomXyyaw_Topics,1);
+	    	xiaoyi_swd::MDtaPack_Lvl0 mdtapack;
+		mdtapack.fdta_use = 0;
+		mdtapack.farray_use = 0;
+		mdtapack.point32dta = Dtain;
+		pub.publish(mdtapack);
+	
+		return true;
+	}
+	return false;
+}
+
+bool SensorOdom_Write_OdomPose(geometry_msgs::Pose Dtain)
+{
+	bool sta = false;
+	if (SensorOdom_mutex0 == true)
+	{
+		SensorOdom_mutex0 = false;
+		
+		sta = true;
+		OdomPose = Dtain;
+		SensorOdom_Init1 = true;
+
+		SensorOdom_mutex0 = true;
+	}
+
+	if(sta){
+		static ros::NodeHandle nstru;
+		static ros::Publisher pub = nstru.advertise<xiaoyi_swd::MDtaPack_Lvl0>(SensorOdom_OdomPose_Topics,1);
+	    	xiaoyi_swd::MDtaPack_Lvl0 mdtapack;
+		mdtapack.fdta_use = 0;
+		mdtapack.farray_use = 0;
+		mdtapack.posedta = Dtain;
+		pub.publish(mdtapack);
+		
+		return true;
+	}
+	return false;
+}
+
+//* Read Part *//
+char SensorOdom_Read_OdomXyyaw(geometry_msgs::Point32 *Dtaout)
+{
+	if (SensorOdom_mutex0 == true)
+	{
+		SensorOdom_mutex0 = false;
+		
+		if (SensorOdom_Init0){
+			(*Dtaout) = OdomXyyaw;
+
+			SensorOdom_mutex0 = true;
+			return 1;
+		}else{
+			SensorOdom_mutex0 = true;
+			return 2;
+		}
+	}
+	return 0;
+}
+
+char SensorOdom_Read_OdomPose(geometry_msgs::Pose *Dtaout)
+{
+	if (SensorOdom_mutex0 == true)
+	{
+		SensorOdom_mutex0 = false;
+
+		if (SensorOdom_Init1){
+			(*Dtaout) = OdomPose;
+
+			SensorOdom_mutex0 = true;
+			return 1;
+		}else{
+			SensorOdom_mutex0 = true;
+			return 2;
+		}
+	}
+	return 0;
+}
+
+//*********************************************************************************************************************
+//						Mutex1 Part 
+//*********************************************************************************************************************
+static volatile bool SensorOdom_mutex1 = true;
+static geometry_msgs::Twist OdomTwist;
+#if Simulation_En == 0
+//* Sub Topics Func */
+void SensorOdom_OdomTwistCall(const geometry_msgs::Twist& odomtwist)
+{
+	if (SensorOdom_mutex1 == true)
+	{
+		SensorOdom_mutex1 = false;
+		
+		OdomTwist = odomtwist;
+
+		SensorOdom_mutex1 = true;
+	}
+}
+
+#else
+void SensorOdom_OdomTwistCall(const nav_msgs::Odometry& odomtwist)
+{
+	if (SensorOdom_mutex1 == true)
+	{
+		SensorOdom_mutex1 = false;
+		
+		OdomTwist = odomtwist.twist.twist;
+
+		SensorOdom_mutex1 = true;
+	}
+}
+
+#endif
+//* Read Part *//
+char SensorOdom_Read_OdomTwist(geometry_msgs::Twist *Dtaout)
+{
+	if (SensorOdom_mutex1 == true)
+	{
+		SensorOdom_mutex1 = false;
+		
+		(*Dtaout) = OdomTwist;
+
+		SensorOdom_mutex1 = true;
+		return 1;
+	}
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
