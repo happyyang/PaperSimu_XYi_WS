@@ -1,5 +1,4 @@
 # Illustration:
-/* ********************************************************************************
 * Copyright (c) <Yingbing Chen>. All rights reserved.
 * FileName: xyi_ws
 * Contact:
@@ -13,11 +12,8 @@
 * Time: 20161107   10:49   in XIAMEN University
 * Illustration:
 *      A*Route + Static Map(+ Safe Area) + DynamicWindowsApproach(DWA) + gmapping/hectormapping
-* 
-* ********************************************************************************/
 
 # New Changes:
-/* ********************************************************************************
 * new support:
 *	simulation environment:	 stage_ros
 *	handsfree robot:	 handsfree team's robot
@@ -35,7 +31,5 @@
 *		/RobotPort_Odom 	<nav_msgs::Odometry>	: unaccomplished
 *
 *	more details see the xyi_ws/src/ReadMe
-* ********************************************************************************/
-
 
 
