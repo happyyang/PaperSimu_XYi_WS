@@ -26,9 +26,9 @@
 *		base_laser_link_r			
 *	>> rostopics list
 *		/RobotPort_CmdVel	<geometry_msgs::Twist>
-*		/RobotPort_FilterScan	<sensor_msgs::LaserScan>	Out
-*		/RobotPort_Scan		<sensor_msgs::LaserScan>	Orin Out
-*		/RobotPort_Odom 	<nav_msgs::Odometry>	: unaccomplished
+*		/RobotPort_FilterScan	<sensor_msgs::LaserScan>	
+*		/RobotPort_Scan		<sensor_msgs::LaserScan>	
+*		/RobotPort_Odom 	<nav_msgs::Odometry>	
 
 # More:
 *	more details see the xyi_ws/src/ReadMe
