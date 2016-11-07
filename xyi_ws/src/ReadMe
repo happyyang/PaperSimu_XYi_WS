@@ -8,6 +8,9 @@ Pkg Require:
 
 	and all this pkg recommend to use the jade level.
 
+Attention!:
+	handsfree_hw/src main.cpp's code in line7 should be correct according to your path dirth
+
 /////////////////////////////////////////////////////////////////////////////////
 // Control on keyboard:
 	roslaunch xiaoyi_bot 	keyboard_handsfree.launch

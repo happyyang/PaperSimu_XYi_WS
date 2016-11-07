@@ -1,4 +1,4 @@
-
+/////////////////////////////////////////////////////////////////////////////////
 Pkg Require:
 	all pkg which handsfree robot need.
 	vision_opencv
@@ -7,6 +7,9 @@ Pkg Require:
 	and so on : you can according the make message to install.
 
 	and all this pkg recommend to use the jade level.
+
+Attention!:
+	handsfree_hw/src main.cpp's code should be correct in line7 according to your path dirth
 
 /////////////////////////////////////////////////////////////////////////////////
 // Control on keyboard:
