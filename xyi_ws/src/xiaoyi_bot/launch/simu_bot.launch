@@ -1,22 +1,21 @@
 <launch>
   
-
   <node
     pkg="stage_ros" name="robot_hardware" type="stageros" output="screen"
     args="$(find stage_ros)/world/willow-erratic.world" >
     <!-- Enable the turtlesim key 
-    <remap from="/cmd_vel" to="/turtle1/cmd_vel"/> 
-    -->
+    <remap from="/cmd_vel" to="/turtle1/cmd_vel"/> -->
+    
     <!-- Enable the Program key -->
     <remap from="/cmd_vel" to="/RobotPort_CmdVel"/> 
-
+    
     <remap from="/base_scan" to="/RobotPort_Scan"/> 
-    <remap from="/odom" to="/RobotPort_TmpOdom"/>
+    <remap from="/odom" to="/RobotPort_Odom"/>
 
   </node>
 
   <node 
-    pkg="xiaoyi_bot" name="Node_Tfmanage" type="tfmanage_node" output="screen">
+    pkg="xiaoyi_bot" name="robot_tfmanage" type="tfmanage_node" output="screen">
 
     <param name="lsr_x" type="double" value="0.05" />
     <param name="lsr_y" type="double" value="0.0" />
@@ -24,7 +23,7 @@
   </node>
 
   <node 
-    pkg="laser_filters" name="laser_filter" type="scan_to_scan_filter_chain">
+    pkg="laser_filters" name="robot_laserfilter" type="scan_to_scan_filter_chain">
     <rosparam command="load" file="$(find xiaoyi_bot)/config/simu_laser_config.yaml" />
     <remap from="scan" to="/RobotPort_Scan" />
   </node>

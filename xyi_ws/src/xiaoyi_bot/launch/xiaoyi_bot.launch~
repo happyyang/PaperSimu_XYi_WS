@@ -1,14 +1,14 @@
 <launch>
 
   <node 
-    pkg="xiaoyi_bot" name="Node_Scom" type="scom_node" output="screen">
+    pkg="xiaoyi_bot" name="robot_scom" type="scom_node" output="screen">
     <!-- Enable the turtlesim key 
     <remap from="/RobotPort_CmdVel" to="/turtle1/cmd_vel"/> 
     -->
   </node>
 
   <node 
-    pkg="xiaoyi_bot" name="Node_Tfmanage" type="tfmanage_node" output="screen">
+    pkg="xiaoyi_bot" name="robot_tfmanage" type="tfmanage_node" output="screen">
 
     <param name="lsr_x" type="double" value="0.095" />
     <param name="lsr_y" type="double" value="0.0" />
@@ -16,7 +16,7 @@
   </node>
 
   <node
-    pkg="hokuyo_node" name="Node_Lsr" type="hokuyo_node">
+    pkg="hokuyo_node" name="robot_laser" type="hokuyo_node">
     <remap from="/scan" to="/RobotPort_Scan"/> 
     <param name="cluster" value="1"/>
     <param name="skip" value="1"/>

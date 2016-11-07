@@ -16,7 +16,6 @@
 	    {
             Trun = boost::bind(&TASK_THREAD::task,this);
             ThisThread = new boost::thread(Trun);
-            //ThisThread->join(); //Run until quit!!!
 
             mutex = true;
 
@@ -40,6 +39,11 @@
             ThisThread->interrupt();
             delete ThisThread;
 	    }
+
+        void Thread_ForcedRun(void)
+        {
+            ThisThread->join();
+        }
 
         void DataInit(double *LsrLInit);
         void DataFeed(nav_msgs::Odometry odom);

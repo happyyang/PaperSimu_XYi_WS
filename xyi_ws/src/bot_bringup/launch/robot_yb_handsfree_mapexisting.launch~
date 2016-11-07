@@ -1,0 +1,56 @@
+<launch>
+ 
+  <!-- Pkg: Choose Your Robot -->
+  <include file="$(find xiaoyi_bot)/launch/handsfree_bot.launch">
+ 
+  </include>
+
+  <!-- Pkg: Map -->
+  <node
+    pkg="map_server" name="robot_mapserver" type="map_server" output="screen"
+    args="$(find bot_bringup)/map/lab_map.yaml" >
+    
+    <param name="frame_id" type="string" value="map_r" />   
+
+    <remap from="/map" to="/map_s"/>
+  </node>
+
+  <!-- Pkg: Amcl -->
+  <!-- Amcl adjust the odom by publish tf map to odom!!! -->
+  <node
+    pkg="amcl" name="robot_amcl" type="amcl" output="screen" >
+
+    <param name="update_min_d" type="double" value="0.1" />    
+    <param name="update_min_a" type="double" value="0.2118" />   
+
+    <param name="initial_pose_x" type="double" value="0.0" />
+    <param name="initial_pose_y" type="double" value="0.0" />
+    <param name="initial_pose_a" type="double" value="0.0" /> 
+
+    <param name="first_map_only" type="bool" value="true" /> 
+
+    <param name="odom_frame_id" type="string" value="odom_r" /> 
+    <param name="base_frame_id" type="string" value="base_link_r" /> 
+    <param name="global_frame_id" type="string" value="map_r" /> 
+
+    <param name="tf_broadcast" type="bool" value="true" /> 
+
+    <remap from="/scan" to="/RobotPort_FilterScan"/>
+
+  </node>
+
+  <!-- Pkg: GenMap -->
+  <node
+    pkg="yb_botguider" name="robot_guider" type="botguider_node" output="screen">
+    
+    <param name="Robot_Radius"		type="double" value="0.2" />  
+    <param name="LsrDta_Blen"		type="double" value="0" /> 
+    <param name="LsrDta_Elen"		type="double" value="0" />  
+    <param name="MapSafe_Robot_Radius"	type="double" value="0.25" />  
+  </node>
+
+</launch>
+
+
+
+

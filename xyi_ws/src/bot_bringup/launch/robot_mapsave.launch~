@@ -1,0 +1,7 @@
+<launch>
+
+  <node 
+    pkg="map_server" name="robot_savemap" type="map_saver" output="screen" args="-f simu_map">
+  </node> 
+
+</launch>

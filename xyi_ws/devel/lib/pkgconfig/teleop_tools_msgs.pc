@@ -1,0 +1,8 @@
+prefix=/home/cyb7369299/My_Workspace/xyi_ws/devel
+
+Name: teleop_tools_msgs
+Description: Description of teleop_tools_msgs
+Version: 0.2.3
+Cflags: -I/home/cyb7369299/My_Workspace/xyi_ws/devel/include
+Libs: -L/home/cyb7369299/My_Workspace/xyi_ws/devel/lib 
+Requires: message_runtime actionlib_msgs

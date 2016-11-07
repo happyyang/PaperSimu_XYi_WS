@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: yb_botguider
+Description: Description of yb_botguider
+Version: 0.0.0
+Cflags: 
+Libs: -L/usr/local/lib 
+Requires: 

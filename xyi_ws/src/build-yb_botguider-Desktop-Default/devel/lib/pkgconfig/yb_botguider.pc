@@ -1,0 +1,8 @@
+prefix=/home/cyb7369299/My_Workspace/xyi_ws/src/build-yb_botguider-Desktop-Default/devel
+
+Name: yb_botguider
+Description: Description of yb_botguider
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/cyb7369299/My_Workspace/xyi_ws/src/build-yb_botguider-Desktop-Default/devel/lib 
+Requires: 

@@ -1,3 +1,5 @@
+-- by yb, in 2016/09/11
+
 launch file:
 	simu_bot.launch: 	stage_ros
 	xiaoyi_bot.launch:	yingbing's robot
@@ -7,7 +9,7 @@ pkg or include files require:
 	2: include 	/usr/include/eigen3
 
 >> tf_tree	<bot part>			<simuation remained>
-		map_r(unaccomplished)		
+		map_r(unaccomplished)			
 
 		odom_r				odom
 
@@ -27,7 +29,7 @@ pkg or include files require:
 			the integral of the robot odom + robot twist(simulation can't offer twist data)
 			you use it to caculate the final odom dta: "/RobotPort_Odom"
 
-	/RobotPort_Odom 	<nav_msgs::Odometry>	: unaccomplished
+	/RobotPort_Odom 	<nav_msgs::Odometry>
 		: the final odom dta
 
 >> node list

@@ -1,0 +1,64 @@
+/////////////////////////////////////////////////////////////////////////////////
+Pkg Require:
+	all pkg which handsfree robot need.
+	vision_opencv
+	hector_mapping
+	gmapping 
+	and so on : you can according the make message to install.
+
+	and all this pkg recommend to use the jade level.
+
+/////////////////////////////////////////////////////////////////////////////////
+// Control on keyboard:
+	roslaunch xiaoyi_bot 	keyboard_handsfree.launch
+
+// Setup up Robot alone
+	// simu(stage_ros)
+	roslaunch xiaoyi_bot	simu_bot.launch
+
+	// handsfree(handsfree team)
+	roslaunch xiaoyi_bot	handsfree_bot.launch
+
+	// xiaoyi_bot(chenyingbing private)
+	roslaunch xiaoyi_bot	xiaoyi_bot.launch
+
+/////////////////////////////////////////////////////////////////////////////////
+// Run a DEMO:
+	// Tips:
+		use the gmapping pkg to fix the location problem when run the [guide robot launch], but we
+		assume that the initial pose is [x = 0, y = 0, yaw = 0]
+
+		so it require:
+			when use handsfree robot(whenever build map or guide robot in the map), your controller(stm32) should
+			reboot so that the initial pose will keep consistent.
+
+		when in the simu environment:
+			because the initial pos of the map having been buided is having been corrected. so you should change the 
+			initial pose of stagemap:
+
+			roscd stage_ros/world
+			sudo vim willow-erratic.world
+
+			in the last 2 lines:
+			erratic( pose [ -11.277 33.000 0 180.000 ] name "era" color "green")
+			block( pose [ -13.924 25.020 0 180.000 ] color "red")
+
+			make sure that the param is consistent as above: correct the erratic pose ??? >> to 33.000
+	// simu environment:
+
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		// build the map
+		roalaunch bot_bringup	robot_yb_simu_hectormapping.launch
+		// guide robot in the map
+		roalaunch bot_bringup	robot_yb_simu_mapexisting.launch
+
+	// handsfree robot:
+
+		//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		// build the map
+		roalaunch bot_bringup	robot_yb_handsfree_hectormapping.launch
+		// guide robot in the map
+		roslaunch bot_bringup	robot_yb_handsfree_mapexisting.launch
+
+
+	

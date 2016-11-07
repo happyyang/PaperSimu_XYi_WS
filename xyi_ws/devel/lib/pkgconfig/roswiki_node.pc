@@ -1,0 +1,8 @@
+prefix=/home/cyb7369299/My_Workspace/xyi_ws/devel
+
+Name: roswiki_node
+Description: Description of roswiki_node
+Version: 0.2.4
+Cflags: 
+Libs: -L/home/cyb7369299/My_Workspace/xyi_ws/devel/lib 
+Requires: 

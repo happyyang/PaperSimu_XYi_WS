@@ -1,0 +1,8 @@
+prefix=/home/cyb7369299/My_Workspace/xyi_ws/devel
+
+Name: key_teleop
+Description: Description of key_teleop
+Version: 0.2.3
+Cflags: 
+Libs: -L/home/cyb7369299/My_Workspace/xyi_ws/devel/lib 
+Requires: 
